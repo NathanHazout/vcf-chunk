@@ -1,0 +1,14 @@
+{
+  "name": "vcf-chunk",
+  "version": "1.0.0",
+  "description": "Split a large vCard into smaller chunks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nathan Hazout",
+  "license": "ISC",
+  "dependencies": {
+    "vcf": "^2.0.1"
+  }
+}
