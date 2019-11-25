@@ -36,7 +36,7 @@ fs.readFile('contacts.vcf', encodingIn, (err, data) => {
             data += card.toString();
             data += '\n'; 
         }
-        fs.writeFile(filename, data, encodingOut);
+        fs.writeFileSync(filename, data, encodingOut);
 
         part++;
     }
