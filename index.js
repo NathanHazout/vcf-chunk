@@ -2,6 +2,7 @@ let fs = require('fs');
 let vCard = require( 'vcf' );
 let encodingIn = 'utf8';
 let encodingOut = 'ucs2';
+const MAX_BYTES = 20000000;
 
 fs.readFile('contacts.vcf', encodingIn, (err, data) => {
     if (err) throw err;
@@ -9,36 +10,25 @@ fs.readFile('contacts.vcf', encodingIn, (err, data) => {
     let cards = vCard.parse( data );
     console.log(cards.length);
 
-    perChunk = 85 // items per chunk    
-
-    inputArray = cards;
-    
-    let chunks = inputArray.reduce((resultArray, item, index) => { 
-      const chunkIndex = Math.floor(index/perChunk)
-    
-      if(!resultArray[chunkIndex]) {
-        resultArray[chunkIndex] = [] // start a new chunk
-      }
-    
-      resultArray[chunkIndex].push(item)
-    
-      return resultArray
-    }, [])
-    
-    console.log(chunks.length);
-
     let part = 1;
-    for(let chunk of chunks){
-        let filename = `part${part}.vcf`;
+    let currentSize = 0; 
+    let currentCount = 0;  
 
-        let data = '';
-        for(let card of chunk){
-            data += card.toString();
-            data += '\n'; 
-        }
-        fs.writeFileSync(filename, data, encodingOut);
-
+    for(let card of cards){
+      let text = card.toString() + '\n';
+      let size = Buffer.byteLength(text, encodingOut);
+      if(currentSize + size > MAX_BYTES){
+        // New file
+        console.log(`Part ${part} contains ${currentCount} items for ${currentSize} bytes`);
         part++;
+        currentSize=0;
+        currentCount=0;
+      }
+      let filename = `part${part}.vcf`;
+      fs.appendFileSync(filename, text, encodingOut);
+      currentSize += size;
+      currentCount++;
     }
+    console.log(`Part ${part} contains ${currentCount} items for ${currentSize} bytes`);
 
   });

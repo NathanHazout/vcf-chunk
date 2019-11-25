@@ -9,6 +9,6 @@
   "author": "Nathan Hazout",
   "license": "ISC",
   "dependencies": {
-    "vcf": "^2.0.1"
+    "vcf": "^2.0.6"
   }
 }
