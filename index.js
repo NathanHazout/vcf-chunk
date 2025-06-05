@@ -1,7 +1,7 @@
 let fs = require('fs');
 let vCard = require( 'vcf' );
 let encodingIn = 'utf8';
-let encodingOut = 'ucs2';
+let encodingOut = 'utf8';
 const MAX_BYTES = 20000000;
 
 fs.readFile('contacts.vcf', encodingIn, (err, data) => {

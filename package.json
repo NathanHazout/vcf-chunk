@@ -1,6 +1,6 @@
 {
   "name": "vcf-chunk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Split a large vCard into smaller chunks",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,6 @@
   "author": "Nathan Hazout",
   "license": "ISC",
   "dependencies": {
-    "vcf": "^2.0.6"
+    "vcf": "^2.1.2"
   }
 }
